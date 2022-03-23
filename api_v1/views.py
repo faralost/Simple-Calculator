@@ -20,7 +20,7 @@ def add_view(request):
             return JsonResponse(response)
         else:
             response = {'error': 'Please enter integer numbers!'}
-            return JsonResponse(response)
+            return JsonResponse(response, status=400)
     return HttpResponseNotAllowed('only POST requests are allowed!')
 
 
@@ -32,7 +32,7 @@ def subtract_view(request):
             return JsonResponse(response)
         else:
             response = {'error': 'Please enter integer numbers!'}
-            return JsonResponse(response)
+            return JsonResponse(response, status=400)
     return HttpResponseNotAllowed('only POST requests are allowed!')
 
 
@@ -44,7 +44,7 @@ def multiply_view(request):
             return JsonResponse(response)
         else:
             response = {'error': 'Please enter integer numbers!'}
-            return JsonResponse(response)
+            return JsonResponse(response, status=400)
     return HttpResponseNotAllowed('only POST requests are allowed!')
 
 
@@ -56,8 +56,9 @@ def divide_view(request):
                 response = {'answer': data['A'] / data['B']}
             except ZeroDivisionError:
                 response = {'error': 'Division by zero!'}
+                return JsonResponse(response, status=400)
             return JsonResponse(response)
         else:
             response = {'error': 'Please enter integer numbers!'}
-            return JsonResponse(response)
+            return JsonResponse(response, status=400)
     return HttpResponseNotAllowed('only POST requests are allowed!')
